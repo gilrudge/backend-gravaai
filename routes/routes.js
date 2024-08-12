@@ -10,6 +10,7 @@ const createArenaCtrl = require('../controller/createArenaCtrl');
 const updateVideosArenaCtrl = require('../controller/updateVideosArenaCtrl');
 const getArenasCtrl = require('../controller/getArenasCtrl');
 const deleteVideoArenaCtrl = require('../controller/deleteVideoArenaCtrl');
+const deleteArenaCtrl = require('../controller/deleteArenaCtrl')
 
 
 //Public routes
@@ -22,12 +23,13 @@ router.get('/arenas',checkToken, getArenasCtrl);
 
 //Private routes admin
 router.post('/cadastro-arena', createArenaCtrl);
-router.put('/lances',updateVideosArenaCtrl);
+router.put('/grava-lances',updateVideosArenaCtrl);
+router.delete('/exclui-lances/:idArena/:idVideo', deleteVideoArenaCtrl);
+router.delete('/exclui-arena/:idArena', deleteArenaCtrl);
 
 
-// router.delete('/lances/:id', deleteVideoArenaCtrl);
 
-router.delete('/lances/:idArena/:idVideo', deleteVideoArenaCtrl);
+
 
 
 

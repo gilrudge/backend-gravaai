@@ -14,6 +14,12 @@ const createArenaCtrl = async(req,res) => {
     return res.status(404).json({message: "Favor cadastrar mac adress DVR"})
   };
 
+  const dvrCadastrado = await Arena.findOne({macDvr});
+
+  if(dvrCadastrado){
+    return res.status(422).json({message: "Esse equipamento já está cadastrado"})
+  }
+
   const arena = new Arena({
 
     nomeArena,
