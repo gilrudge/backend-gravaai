@@ -7,16 +7,25 @@ const deleteVideoArenaCtrl = async(req, res) => {
 
     const {idArena, idVideo} = req.params
     
-    // const {idVideo} = req.params
-    // const video = await Video.findOne(idVideo);
-    const arena = await Arena.findById(idVideo)
+   
+    const arenaExists = await Arena.findById(idArena)
     
-    // const video = await Video.findById(idVideo)
-    // const videos = arena.videos.map(item => item._id)
-    // console.log(video)
-    // console.log(idVideo)
-    // arena.save()
-    console.log(videos)
+    if(!arenaExists){
+
+      return res.status(404).json({message: "Arena não encontrada "})
+
+    };
+
+    const deleteVideo = await Arena.findByIdAndUpdate(idArena,
+
+      {$pull: { videos:{_id:idVideo}}},
+      {new: true}
+    );
+
+    if(!deleteVideo){
+
+      return res.status(404).json({message: "Video não deletado"})
+    };
 
     res.status(200).json("Vídeo deletado com sucesso")
 

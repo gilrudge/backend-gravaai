@@ -27,7 +27,7 @@ router.put('/lances',updateVideosArenaCtrl);
 
 // router.delete('/lances/:id', deleteVideoArenaCtrl);
 
-router.get('/lances/:idArena/:idVideo', deleteVideoArenaCtrl);
+router.delete('/lances/:idArena/:idVideo', deleteVideoArenaCtrl);
 
 
 
