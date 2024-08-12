@@ -2,7 +2,7 @@ const Arena = require('../models/Arena');
 
 const createArenaCtrl = async(req,res) => {
 
-  const {nomeArena, cnpj, macDvr, pais, estado, cidade, bairro, endereco} = req.body
+  const {nomeArena, cnpj, macDvr, pais, estado, cidade, bairro, endereco} = req.body;
 
   const arenaExists = await Arena.findOne({cnpj});
 
@@ -38,8 +38,8 @@ const createArenaCtrl = async(req,res) => {
       console.log(error);
 
       res.status(500).json({message:error});
-  }
+  };
 
 };
 
-module.exports = createArenaCtrl
+module.exports = createArenaCtrl;

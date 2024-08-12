@@ -22,8 +22,8 @@ const checkToken = (req, res, next) => {
   }catch(err){
     console.log(err)
     res.status(400).json({message: 'Token inválido, favor se logar novamente!'})
-    res.redirect(301,'auth/login')
-    next()
+    // res.redirect(301,'auth/login')
+    // next()
   }
 };
 

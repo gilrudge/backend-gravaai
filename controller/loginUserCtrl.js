@@ -4,45 +4,45 @@ const jwt = require('jsonwebtoken')
 
 const loginUserCtrl = async (req, res) => {
 
-  const {email, password} = req.body
+  const { email, password } = req.body
 
-  if(!email){
-    return res.status(422).json({message: 'O email é obrigatório'})
-   }
-   if(!password){
-    return res.status(422).json({message: 'O password é obrigatório'})
-   } 
+  if (!email) {
+    return res.status(422).json({ message: 'O email é obrigatório' })
+  };
+
+  if (!password) {
+    return res.status(422).json({ message: 'O password é obrigatório' })
+  };
 
   //Check if user exists
-  const user = await User.findOne({email})
+  const user = await User.findOne({ email });
 
-  if(!user){
-    return res.status(404).json({message: 'Usuário não cadastrado'}) 
+  if (!user) {
+    return res.status(404).json({ message: 'Usuário não cadastrado' })
   };
 
   //Check password
-  const checkPassword = bcrypt.compare(password, user.password)
+  const checkPassword = bcrypt.compare(password, user.password);
 
-  if(!checkPassword){
-    return res.status(422).json({message: 'Senha inválida!'})
-  }
+  if (!checkPassword) {
+    return res.status(422).json({ message: 'Senha inválida!' })
+  };
 
   try {
 
-    const secret = process.env.SECRET
+    const secret = process.env.SECRET;
 
-    const token = jwt.sign( {id: user._id}, secret, {expiresIn: 30})
+    const token = jwt.sign({ id: user._id }, secret, { expiresIn: 3600 });
 
-  res.status(200).json({message: 'Autenticação realizada com sucesso', token})
-    
+    res.status(200).json({ message: 'Autenticação realizada com sucesso', token });
+
   } catch (err) {
-    console.log(err)
+    console.log(err);
 
-    res.status(500).json({message: 'Aconteceu um erro no servidor, tente novamente mais tarde!'})
-    
+    res.status(500).json({ message: 'Aconteceu um erro no servidor, tente novamente mais tarde!' })
+
   }
-
 
 };
 
-module.exports = loginUserCtrl
+module.exports = loginUserCtrl;
