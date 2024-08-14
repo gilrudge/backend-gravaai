@@ -1,5 +1,6 @@
 const Arena = require('../models/Arena');
-const formatedData = require('../utils/dateFormatter')
+const formatedData = require('../utils/dateFormatter');
+const comparaData = require('../utils/comparaData');
 
 const updateVideosArenaCtrl = async (req, res) => {
 
@@ -32,7 +33,7 @@ const updateVideosArenaCtrl = async (req, res) => {
       link,
       flg_process,
       macDvr,
-      created: formatedData,
+      // created: formatedData,      
       arena:arenaExists._id
     };
 
