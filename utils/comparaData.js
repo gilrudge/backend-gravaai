@@ -40,6 +40,4 @@ function comparaData(dataString){
 };
 
 
-console.log(comparaData(dataString));
-
 module.exports = comparaData

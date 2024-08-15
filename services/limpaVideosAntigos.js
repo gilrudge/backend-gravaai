@@ -1,13 +1,46 @@
 const Arena = require('../models/Arena');
+const comparaData = require('../utils/comparaData')
 
 
-const limpaVideosAntigos = async () =>{
+const limpaVideosAntigos = async () => {
 
-  const idArenas = await Arena.findOne()
+  const limpaVideo = async (itemArena, itemVideos) => {
+    if(comparaData(itemVideos.date)){
 
-  return console.log(idArenas)
+      await Arena.findByIdAndUpdate(itemArena._id,
+
+        {$pull: {videos:{_id:itemVideos._id}}},
+        {new: true}
+      )
+
+     };
+  };
+
+  try {
+
+    const arenas = await Arena.find();  
+    const idArenas = arenas.map(itemArena => {
+      
+      return itemArena.videos.map(itemVideos => {
+
+        limpaVideo(itemArena,itemVideos)
+      
+      });
+    
+    });
+
+    
+    console.log("videos excluidos")
+
+  } catch (error) {
+
+    console.log(error.message)
+    
+  }
+
+
 
 };
 
-
-limpaVideosAntigos()
+// limpaVideosAntigos()
+module.exports = limpaVideosAntigos

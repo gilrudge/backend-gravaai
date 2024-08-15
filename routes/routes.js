@@ -35,4 +35,5 @@ router.delete('/exclui-lances/:idArena/:idVideo', deleteVideoArenaCtrl);
 
 
 
+
 module.exports = router
