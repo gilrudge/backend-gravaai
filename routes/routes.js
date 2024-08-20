@@ -16,16 +16,19 @@ const getSelectedArenaCtrl = require('../controller/getSelectedArenaCtrl');
 const limpaVideosAntigosCtrl = require('../controller/limpaVideosAntigosCtrl');
 const recuperaSenhaCtrl = require('../controller/recuperaSenhaCtrl');
 const getHome = require('../controller/getHome');
+const resetSenhaCtrl = require('../controller/resetSenhaCtrl')
 
 //Public routes
 router.get('/', getHome);
 router.post('/auth/register', createUser);
 router.post('/auth/login', loginUserCtrl);
+router.get('/recupera-senha', recuperaSenhaCtrl);
 
 //Private route users
 // router.get('/user/:id', checkToken, userPrivateRouteCtrl);
 router.get('/arenas',checkToken, getArenasCtrl);
 router.get('/arenas/:idArena',checkToken, getSelectedArenaCtrl);
+router.post('/reset-senha', resetSenhaCtrl);
 
 
 //Private routes admin
@@ -34,7 +37,6 @@ router.delete('/exclui-arena/:idArena', deleteArenaCtrl);
 router.put('/grava-lances',updateVideosArenaCtrl);
 router.delete('/exclui-lances/:idArena/:idVideo', deleteVideoArenaCtrl);
 router.get('/limpa-videos', limpaVideosAntigosCtrl);
-router.get('/recupera-senha', recuperaSenhaCtrl);
 
 
 

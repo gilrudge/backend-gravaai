@@ -7,7 +7,7 @@ const getArenasCtrl = async (req, res) => {
     const arenas = await Arena.find();
    
 
-    res.status(200).json(arenas);
+    res.status(200).json({user: req.userId, arenas});
 
   } catch (error) {
 

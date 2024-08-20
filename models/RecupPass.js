@@ -12,9 +12,14 @@ const RecupPassSchema = {
     lowercase: true,
     unique: true
   },
-  tempPass: {
+  passwordResetToken: {
     type:String,
-    required:true
+    required:true,
+    select: false
+  },
+  passwordReserEpires: {
+    type: Date,
+    select:false
   }
 }
 

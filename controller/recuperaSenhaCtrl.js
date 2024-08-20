@@ -1,8 +1,9 @@
 const RecupPass = require('../models/RecupPass');
 const User = require('../models/User')
 const bcrypt = require('bcrypt');
+const crypto = require('crypto');
 // const mailSender = require('../utils/mailSender');
-const nodemailer = require('nodemailer')
+const nodemailer = require('nodemailer');
 require('dotenv').config()
 
 
@@ -10,31 +11,28 @@ const recuperaSenhaCtrl = async (req, res) => {
   
   try {
     
-    const {emailUser, tempPass} = req.body
+    const {email} = req.body
     
-    const checkEmailExists = await User.findOne({email:emailUser})
+    const user = await User.findOne({email})
     
-    if(!checkEmailExists){
+    if(!user){
 
       return res.status(404).json({message: "Usuário não encontrado"})
 
     };
 
-    const name = checkEmailExists.name
-    const tempPassString = tempPass.toString()
-    const salt = await bcrypt.genSalt(12);
-    const tempPassHash = await bcrypt.hash(tempPassString, salt)
+    const token = crypto.randomBytes(20).toString('hex');
+    const now = new Date();
+    now.setHours(now.getHours() + 1).toLocaleString();
 
-    const recuperarSenha = new RecupPass({
-
-      name,
-      email: emailUser,
-      tempPass:tempPassHash
-
+    await User.findByIdAndUpdate(user._id, {
+      '$set': {
+        passwordResetToken: token,
+        passwordReserEpires: now,
+      }
     });
 
-    recuperarSenha.save()
-
+    
 
     const mailOptions = {
       service: 'gmail',
@@ -51,16 +49,21 @@ const recuperaSenhaCtrl = async (req, res) => {
     const info = await transporter.sendMail({
 
       from:`"Gravaai" <${process.env.EMAIL_USER}>`,
-      to: emailUser,
+      to: email,
       subject:'Esqueci minha senha Gravaai - Senha temporária',
-      text: `Sua senha temporária é ${tempPass}`
+      text: `Sua senha temporária é ${token}`
+    }, (err) =>{
+      if(err){
+        return res.status(400).json({message: "Não foi possível enviar o email de recuperação de senha"});
+      }
+      res.status(200).json({message: "Email enviado com sucesso", token});
     });
 
     
 
  
 
-    res.status(200).json({message:`Email enviado para ${emailUser}`});
+    res.status(200).json({message:`Email enviado para ${email}`});
   
 } catch (error) {
     
