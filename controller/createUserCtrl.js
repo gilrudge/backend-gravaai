@@ -9,10 +9,13 @@ const createUserCtrl = async (req, res) => {
   const isEmailValid = require('../utils/isEmailValid');
   const { name, email, password, confirmPassword } = req.body;
 
+ 
+
   //validation
   //inserir outras validações de length e para senha forte
   //inserir login SSO
   const checkEmail = isEmailValid(email);
+  console.log(checkEmail)
 
   if (!name) {
     return res.status(422).json({ message: 'O nome é obrigatório' })

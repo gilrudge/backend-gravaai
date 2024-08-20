@@ -1,6 +1,4 @@
-const emailRegex = 
-
-/^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
+const emailRegex = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/
 
 
 function isEmailValid(email) {
@@ -19,14 +17,19 @@ function isEmailValid(email) {
     if (parts[0].length > 64) {
       return false
     };
-
     // Perform length checks on domain parts
-    const domainParts = parts[1].split(".");
+    
+    const domainParts = parts[1].split('.');
     if (domainParts.some(part => part.length > 63)) {
+        return false
+      };
+      
+    if (domainParts.length > 63) {
       return false
     };
 
-    if(!domainParts.includes(".")) {
+
+    if(!parts[1].includes(".")) {
       return false
     };
 
