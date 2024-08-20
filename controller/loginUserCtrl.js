@@ -1,4 +1,5 @@
 const User = require('../models/User');
+const RecupPass = require('../models/RecupPass');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
 
@@ -15,15 +16,23 @@ const loginUserCtrl = async (req, res) => {
   };
 
   //Check if user exists
-  const user = await User.findOne({ email });
-  // console.log(user)
+  const user = await User.findOne({ email }).select('+password');
+  
+  // const tempPass = await RecupPass.findOne({email});
+  
+  // if(tempPass){
+
+  //   res.status(401).json({message: "Password temporário ativo"})
+
+  // };
+
 
   if (!user) {
     return res.status(404).json({ message: 'Usuário não cadastrado' })
   };
 
   //Check password
-  const checkPassword = bcrypt.compare(password, user.password);
+  const checkPassword = await bcrypt.compare(password, user.password);
 
   if (!checkPassword) {
     return res.status(422).json({ message: 'Senha inválida!' })

@@ -15,9 +15,14 @@ const checkToken = (req, res, next) => {
 
     const secret = process.env.SECRET
 
-    jwt.verify(token, secret)
-
-    next()
+    jwt.verify(token, secret, (err, decoded) => {
+      if(err) {
+        return res.status(401).json({error: "Invalid Token"})
+      };
+      
+      
+     return next()
+    });
     
   }catch(err){
     console.log(err.message)

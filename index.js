@@ -15,13 +15,6 @@ app.use(express.json())
 
 
 
-// //Open route
-// app.get('/', (req,res) => {
-//   // res.status(200).json({message: "Rota API funcionando"})
-//   res.status(200).sendFile('/Users/gilbl/Documents/Programação/gravaai/backend-gravaai/index.html')
-// });
-
-
 app.use('/', routes)
 
 //DB Connection

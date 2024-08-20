@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Recuperar senha</title>
+</head>
+<body>
+
+  <h1>Recuperar Senha</h1>
+
+  <form id="form-rec-senha" onsubmit=handlerButton()>
+    <label for="Senha antiga">Senha Antiga:</label><br>
+    <input type="text" id="senha-antiga" name="Senha antiga"><br><br>
+    <label for="Nova senha">Nova Senha:</label><br>
+    <input type="text" id="nova-senha" name="Nova senha"><br><br>
+    <label for="Confirmar nova senha">Confirmar nova senha:</label><br>
+    <input type="text" id="confirmar-nova-senha" name="Confirmar nova senha"><br><br>
+    <button type="submit" id="send" form="form-rec-senha">Enviar</button>
+  </form>
+  
+</body>
+</html>
+
+<script defer>
+
+  const btn = document.querySelector("#send");
+
+  btn.addEventListener("click", function(e){
+
+    e.preventDefault()
+    const senhaAntiga = document.querySelector("#senha-antiga");
+    const novaSenha = document.querySelector("#nova-senha");
+    const confirmarNovaSenha = document.querySelector("#confirmar-nova-senha");
+    
+    const senhaValue = senhaAntiga.value
+    const novaSenhaValue = novaSenha.value
+    const confirmarNnovaSenhaValue = confirmarNovaSenha.value
+    const teste = {senhaValue, novaSenhaValue, confirmarNnovaSenhaValue} 
+    
+    console.log(teste)
+
+  })
+ 
+  
+  
+    
+</script>

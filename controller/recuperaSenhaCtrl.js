@@ -1,5 +1,6 @@
 const RecupPass = require('../models/RecupPass');
 const User = require('../models/User')
+const bcrypt = require('bcrypt');
 // const mailSender = require('../utils/mailSender');
 const nodemailer = require('nodemailer')
 require('dotenv').config()
@@ -7,17 +8,32 @@ require('dotenv').config()
 
 const recuperaSenhaCtrl = async (req, res) => {
   
-
   try {
-
+    
     const {emailUser, tempPass} = req.body
+    
+    const checkEmailExists = await User.findOne({email:emailUser})
+    
+    if(!checkEmailExists){
 
+      return res.status(404).json({message: "Usuário não encontrado"})
 
-    const checkEmailExists = await User.findOne({emailUser})
+    };
 
-    console.log(checkEmailExists)
+    const name = checkEmailExists.name
+    const tempPassString = tempPass.toString()
+    const salt = await bcrypt.genSalt(12);
+    const tempPassHash = await bcrypt.hash(tempPassString, salt)
 
+    const recuperarSenha = new RecupPass({
 
+      name,
+      email: emailUser,
+      tempPass:tempPassHash
+
+    });
+
+    recuperarSenha.save()
 
 
     const mailOptions = {
@@ -40,11 +56,11 @@ const recuperaSenhaCtrl = async (req, res) => {
       text: `Sua senha temporária é ${tempPass}`
     });
 
-    console.log(info.messageId)
+    
 
  
 
-    res.status(200).json({message:`Email enviado para ${emailUser}`, emailUser});
+    res.status(200).json({message:`Email enviado para ${emailUser}`});
   
 } catch (error) {
     

@@ -1,14 +1,23 @@
 const mongoose = require('mongoose');
 
 
-const RecupPass = mongoose.model('RecupPass', {
-  name: String,
+const RecupPassSchema = {
+  
+  name: {
+    type:String
+  },
   email: {
     type: String,
     required: true,
-    lowercase: true
+    lowercase: true,
+    unique: true
   },
-  tempPass: Number
-});
+  tempPass: {
+    type:String,
+    required:true
+  }
+}
+
+const RecupPass = mongoose.model('RecupPass', RecupPassSchema);
 
 module.exports = RecupPass
