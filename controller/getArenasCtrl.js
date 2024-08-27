@@ -1,17 +1,19 @@
-const Arena = require('../models/Arena');
+// const Arena = require('../models/Arena');
+const path = require('path');
+// const express = require('express')
 
-const getArenasCtrl = async (req, res) => {
+const getArenasCtrl =  (req, res) => {
 
-  try {
+  try { 
+    
 
-    const arenas = await Arena.find();
-   
-
-    res.status(200).json({user: req.userId, arenas});
-
+    res.status(200).sendFile(path.resolve(__dirname,'../front-teste', 'arenas.html'))
+    
+    
+    
   } catch (error) {
 
-    console.log(error);
+    console.log(error.message);
 
     res.status(500).json({ message: "Ocorreu um erro na requisição para o servidor, tente novamente." })
 

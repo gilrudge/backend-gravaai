@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=
+  , initial-scale=1.0">
+  <title>Cadastro</title>
+</head>
+<body>
+
+  <h1>Cadastro</h1>
+
+  <form id="cadastro" onsubmit=handlerButton()>
+    <label for="nome">Nome:</label><br>
+    <input type="text" id="nome" name="nome"><br><br>
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br><br>
+    <label for="senha">Senha:</label><br>
+    <input type="text" id="senha" name="senha"><br><br>
+    <label for="confirma-senha">Confirma Senha:</label><br>
+    <input type="text" id="confirma-senha" name="confirma-senha"><br><br>
+    <button type="submit" id="send" form="cadastro">Enviar</button>
+  </form>
+  <a href="/">
+    <p>voltar</p>
+  </a>
+  
+</body>
+</html>
+
+<script defer>
+
+  const btn = document.querySelector("#send");
+
+  btn.addEventListener("click", function(e){
+
+    e.preventDefault()
+    const valorNome = document.querySelector("#nome");
+    const valorEmail = document.querySelector("#email");
+    const valorSenha = document.querySelector("#senha");
+    const valorConfirmaSenha = document.querySelector("#confirma-senha");
+    
+    const nome = valorNome.value
+    const email = valorEmail.value
+    const senha = valorSenha.value
+    const confirmaSenha = valorConfirmaSenha.value 
+
+    const cadastroObj = {nome,email, senha, confirmaSenha} 
+    
+    console.log(cadastroObj)
+
+  })
+ 
+  
+  
+    
+</script>

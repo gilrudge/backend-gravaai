@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login</title>
+</head>
+<body>
+
+  <h1>Login</h1>
+
+  <form id="cadastro">    
+    <label for="email">Email:</label><br>
+    <input type="text" id="email" name="email"><br><br>
+    <label for="senha">Senha:</label><br>
+    <input type="text" id="senha" name="senha"><br><br>   
+    <button type="submit" id="send" form="cadastro">Enviar</button>
+  </form>
+  <a href="/pass-recover">
+    <p>Esqueceu sua senha?</p>
+  </a>
+  <a href="/">
+    <p>voltar</p>
+  </a>
+  
+</body>
+</html>
+
+<script>
+
+  const form = document.querySelector("#cadastro");
+
+  form.addEventListener("submit", async function(e){
+
+    e.preventDefault()
+    
+    const valorEmail = document.querySelector("#email");
+    const valorSenha = document.querySelector("#senha");
+
+    const email = valorEmail.value
+    const password = valorSenha.value
+   
+    
+
+    try {
+      
+      const loginResponse = await fetch('http://127.0.0.1:3000/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({email, password}),
+        headers:{
+          'Content-Type':'application/json;charset=UTF-8'
+        }     
+      });
+
+      // console.log('MERDA BOSTA: ',loginResponse)
+      
+      if(!loginResponse.ok){
+        throw new Error('Erro ao fazer login, tente novamente');
+      }
+
+      // console.log('loginREsponse:',loginResponse.ok)
+
+      const loginData = await loginResponse.json();
+      sessionStorage.setItem('token', loginData.token)
+
+      // console.log("Token armazenado:", sessionStorage.getItem('token'));
+      const token = await sessionStorage.getItem('token')
+
+      
+      if(!token){
+        throw new Error("Token não carregado");
+        
+      };
+
+      const arenasResponse = await  fetch('http://127.0.0.1:3000/arenas',{
+        method: 'GET',
+        headers: {
+          
+          'Authorization':`Bearer ${token}`
+        }
+      });
+      
+      
+      
+      if(!arenasResponse.ok){
+        throw new Error('Erro ao carregar as arenas');
+      } 
+
+
+      // window.location.reload
+      // if (arenasResponse.ok) {
+      //   window.location.href = "/arenas";
+      // } else {
+      //   console.error('Erro ao carregar as arenas');
+      // }
+
+     
+      
+    
+     
+
+    } catch (error) {
+        console.log(error.message)
+      
+    }      
+        
+ }) 
+    
+</script>

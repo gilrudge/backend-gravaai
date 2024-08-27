@@ -2,14 +2,10 @@
 const nodemailer = require('nodemailer');
 require('dotenv').config( );
 
-const mailSender = async (emailUser, tempPass) => {
+// const mailSender = async (email, token, callback) => {
+const mailSender = (email, token, callback) => {
 
-  // const tempPass = () => {
-    
-  //   return Math.floor(Math.random() * (9999 -1000) + 1000)
-    
-  // }
-    // const tempPass = Math.floor(Math.random() * (9999 -1000) + 1000)
+
     const mailOptions = {
       service: 'gmail',
       host: 'smtp.gmail.com',
@@ -22,15 +18,14 @@ const mailSender = async (emailUser, tempPass) => {
 
     const transporter = nodemailer.createTransport(mailOptions);
 
-    const info = await transporter.sendMail({
+    // const info = await transporter.sendMail({
+    transporter.sendMail({
 
       from:`"Gravaai" <${process.env.EMAIL_USER}>`,
-      to: emailUser,
+      to: email,
       subject:'Esqueci minha senha Gravaai - Senha temporária',
-      text: tempPass
-    });
-
-    console.log(info.messageId)
+      text: `Sua senha temporária é ${token}`
+    },callback);   
 
   };
 
