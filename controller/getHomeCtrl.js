@@ -5,6 +5,7 @@ const getHomeCtrl = ( req, res ) => {
   try {
 
     res.status(200).sendFile(path.join(__dirname,'../front-teste', 'index.html'))
+    // res.render(path.join(__dirname,'../front-teste', 'index.html'))
     
   } catch (error) {
 

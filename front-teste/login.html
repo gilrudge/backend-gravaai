@@ -55,7 +55,7 @@
       
       
       if(!loginResponse.ok){
-        window.location.href = '/'
+        // window.location.href = '/'
         throw new Error('Erro ao fazer login, tente novamente');
       }
 
@@ -64,57 +64,24 @@
       const loginData = await loginResponse.json();
       sessionStorage.setItem('token', loginData.token)
 
-      // console.log("Token armazenado:", sessionStorage.getItem('token'));
+   
       const token = await sessionStorage.getItem('token')
-
+    
       
-      if(token){
-                 
-        const arenasResponse = await  fetch('http://127.0.0.1:3000/arenas', {
+      if(token){       
+        const arenasResponse = await  fetch('http://127.0.0.1:3000/pagina-arenas', {
           method: 'GET',
           headers: {
-            'Content-Type':'application/json; charset=UTF-8',
-            'Authorization':`Bearer ${token}`
-            // 'Accept':'application/json'
-          }
-        })
-          // .then(response => response.json())
-          // .then(response => console.log(response))
-          // .then(response => JSON.stringify(response));
-        const response = await arenasResponse.json();
-        const arenasInfo = await JSON.stringify(response);
-
-        // console.log(arenasResponse);
-        // console.log(arenasInfo);
-
-        if(!arenasResponse.ok){
-          throw new Error('Erro ao carregar informações de arenas')
-        }
-
-        
-        const paginaHtml = await fetch('http://127.0.0.1:3000/pagina-arenas', {
-          method: 'GET',
-          headers: {
-            'Content-Type': 'text/html; charset=utf-8',
-            'Authorization':`Bearer ${token}`
-          }
-        });
-      
-        // window.location.replace('http://127.0.0.1:3000/pagina-arenas')  
-        const responseHtml = await paginaHtml.text()
-        // document.open()
-        document.write(responseHtml)
-
-        // console.log(responseHtml)
-        // window.location.href = '/pagina-arenas'
-        
-        // console.log(arenasResponse)
+            // 'Content-Type':'application/json; charset=UTF-8',
+            'Authorization':`Bearer ${token}`            
+          }         
+        })              
+        window.location.href = '/pagina-arenas'  
+              
       }else {
-
+        
         throw new Error("Token não carregado");
-      };
-
-      
+      };    
           
 
     } catch (error) {

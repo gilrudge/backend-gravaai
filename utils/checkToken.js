@@ -18,7 +18,7 @@ const checkToken = (req, res, next) => {
   
 
     if(!token){
-            return  res.status(401).json({message: 'Acesso Negado, favor realizar o login no checktoken'})
+            return  res.status(401).json({message: 'Acesso Negado, favor realizar o login'})
     };
     
     
