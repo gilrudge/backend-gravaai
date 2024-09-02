@@ -52,13 +52,14 @@
         }     
       });
 
-      // console.log('MERDA BOSTA: ',loginResponse)
+      
       
       if(!loginResponse.ok){
+        window.location.href = '/'
         throw new Error('Erro ao fazer login, tente novamente');
       }
 
-      // console.log('loginREsponse:',loginResponse.ok)
+      
 
       const loginData = await loginResponse.json();
       sessionStorage.setItem('token', loginData.token)
@@ -67,37 +68,54 @@
       const token = await sessionStorage.getItem('token')
 
       
-      if(!token){
-        throw new Error("Token não carregado");
+      if(token){
+                 
+        const arenasResponse = await  fetch('http://127.0.0.1:3000/arenas', {
+          method: 'GET',
+          headers: {
+            'Content-Type':'application/json; charset=UTF-8',
+            'Authorization':`Bearer ${token}`
+            // 'Accept':'application/json'
+          }
+        })
+          // .then(response => response.json())
+          // .then(response => console.log(response))
+          // .then(response => JSON.stringify(response));
+        const response = await arenasResponse.json();
+        const arenasInfo = await JSON.stringify(response);
+
+        // console.log(arenasResponse);
+        // console.log(arenasInfo);
+
+        if(!arenasResponse.ok){
+          throw new Error('Erro ao carregar informações de arenas')
+        }
+
         
+        const paginaHtml = await fetch('http://127.0.0.1:3000/pagina-arenas', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'text/html; charset=utf-8',
+            'Authorization':`Bearer ${token}`
+          }
+        });
+      
+        // window.location.replace('http://127.0.0.1:3000/pagina-arenas')  
+        const responseHtml = await paginaHtml.text()
+        // document.open()
+        document.write(responseHtml)
+
+        // console.log(responseHtml)
+        // window.location.href = '/pagina-arenas'
+        
+        // console.log(arenasResponse)
+      }else {
+
+        throw new Error("Token não carregado");
       };
 
-      const arenasResponse = await  fetch('http://127.0.0.1:3000/arenas',{
-        method: 'GET',
-        headers: {
+      
           
-          'Authorization':`Bearer ${token}`
-        }
-      });
-      
-      
-      
-      if(!arenasResponse.ok){
-        throw new Error('Erro ao carregar as arenas');
-      } 
-
-
-      // window.location.reload
-      // if (arenasResponse.ok) {
-      //   window.location.href = "/arenas";
-      // } else {
-      //   console.error('Erro ao carregar as arenas');
-      // }
-
-     
-      
-    
-     
 
     } catch (error) {
         console.log(error.message)

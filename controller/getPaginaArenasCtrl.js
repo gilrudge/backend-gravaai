@@ -1,13 +1,13 @@
-// const Arena = require('../models/Arena');
 const path = require('path');
 // const express = require('express')
 
-const getArenasCtrl =  (req, res) => {
+const getPaginaArenasCtrl =  async (req, res) => {
 
   try { 
     
-
-    res.status(200).sendFile(path.resolve(__dirname,'../front-teste', 'arenas.html'))
+    
+    res.status(200).sendFile(path.join(__dirname,'../front-teste', 'arenas.html'))
+    
     
     
     
@@ -22,4 +22,4 @@ const getArenasCtrl =  (req, res) => {
 };
 
 
-module.exports = getArenasCtrl;
+module.exports = getPaginaArenasCtrl;

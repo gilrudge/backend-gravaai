@@ -52,15 +52,15 @@ const novaArenaSchema = new mongoose.Schema({
       },
       process_time: {
         type:String,
-        required:true
+        // required:true
       },
       date: {
         type:String,
-        required: true
+        // required: true
     },
       hour: {
         type:String,
-        required: true
+        // required: true
     },
       flg_process: Boolean,
       macDvr: {

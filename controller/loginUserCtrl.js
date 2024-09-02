@@ -43,6 +43,7 @@ const loginUserCtrl = async (req, res) => {
 
     res.status(200)
        .json({ message: 'Autenticação realizada com sucesso', token:token })
+      //  .redirect(301, '/arenas')
       //  .sendFile(path.join(__dirname,'../front-teste', 'login.html'))
        
 

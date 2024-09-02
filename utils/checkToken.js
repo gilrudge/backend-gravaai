@@ -1,5 +1,6 @@
 // const express = require('express');
 const jwt = require('jsonwebtoken');
+const path = require('path')
 
 
 const checkToken = (req, res, next) => {
@@ -9,8 +10,8 @@ const checkToken = (req, res, next) => {
     
     const authorization = req.headers['authorization']
     const token = authorization && authorization.split(' ')[1];
-    console.log('Authorization Header:', authorization);
-    console.log('Token:', token);
+    // console.log('Authorization Header:', authorization);
+    // console.log('Token:', token);
   
  
   
@@ -32,6 +33,7 @@ const checkToken = (req, res, next) => {
       return next()     
     })
 
+    
     
     
     

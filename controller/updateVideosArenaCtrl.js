@@ -13,7 +13,7 @@ const updateVideosArenaCtrl = async (req, res) => {
     const hour = time[1];
 
     
-    
+    console.log('BATATA')
     const arenaExists = await Arena.findOne({ macDvr });
     
 
