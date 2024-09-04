@@ -1,9 +1,117 @@
 version: '3.8'
 
 networks:
-  grava_net:
+  nginx_net:
     driver: bridge
+  grava_net_1:
+    driver: bridge
+  python_net_1:
+    driver: bridge
+  grava_net_2:
+    driver: bridge
+  python_net_2:
+    driver: bridge
+  grava_net_3:
+    driver: bridge
+  python_net_3:
+    driver: bridge
+  mongo_net:
+    driver: bridge  
 
 services:
   nginx:
     image: nginx
+    volumes:
+      -./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - node-api-01
+      - python-api-01
+      - node-api-02
+      - python-api-02
+      - node-api-03
+      - python-api-03
+      
+    ports:
+      -8080:80
+    networks:
+      - nginx_net
+  
+  node-api-01:
+    image: gravaaiapi:v1
+    networks:
+      - nginx_net
+      - grava_net_1
+      - mongo_net
+    depends_on:
+      - mongodb
+    ports:
+      - 3000
+    environment:
+      - DB_URL: mongodb://127.0.0.1:27017/gravaai
+
+  python-api-01:
+    image: pythonapi:v1
+    networks:
+      - grava_net_1
+    depends_on:
+      - node-api-01
+
+  node-api-02:
+    image: gravaaiapi:v1
+    networks:
+      - nginx_net
+      - grava_net_2
+      - mongo_net
+    depends_on:
+      - mongodb
+    ports:
+      - 3000
+    environment:
+      - DB_URL: mongodb://127.0.0.1:27017/gravaai
+
+  python-api-02:
+    image: pythonapi:v1
+    networks:
+      - grava_net_2
+    depends_on:
+      - node-api-02
+
+  node-api-03:
+    image: gravaaiapi:v1
+    networks:
+      - nginx_net
+      - grava_net_3
+      - mongo_net
+    depends_on:
+      - mongodb
+    ports:
+      - 3000
+    environment:
+      - DB_URL: mongodb://127.0.0.1:27017/gravaai
+
+  python-api-03:
+    image: pythonapi:v1
+    networks:
+      - grava_net_3
+    depends_on:
+      - node-api-03
+
+  mongodb:
+    image: mongodb:latest
+    networks:
+      - mongo_net
+    volumes:
+      - /home/gravai/Desktop/gravaaidb
+    ports:
+      - "27017:27017"
+    depends_on:
+      - node-api-01
+      - python-api-01
+      - node-api-02
+      - python-api-02
+      - node-api-03
+      - python-api-03
+    environment:
+      DB:
+      DB_USER:
+      DB_PASSWORD:
