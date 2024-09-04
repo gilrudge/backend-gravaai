@@ -22,6 +22,10 @@ const createUserCtrl = async (req, res) => {
     return res.status(422).json({ message: 'O nome é obrigatório' })
   };
 
+  if (name.length > 20) {
+    return res.status(422).json({ message: 'O nome digitado é muito grande' })
+  };
+
   if (!email) {
     return res.status(422).json({ message: 'O email é obrigatório' })
   };
