@@ -7,6 +7,7 @@ const bcrypt = require('bcrypt');
 const createUserCtrl = async (req, res) => {
 
   const isEmailValid = require('../utils/isEmailValid');
+
   const { name, email, password, confirmPassword } = req.body;
 
  
@@ -62,7 +63,7 @@ const createUserCtrl = async (req, res) => {
   try {
     await user.save()
 
-    res.status(201).json({ message: 'Usuário criado com sucesso!' })
+    res.status(201).json({ message: 'Usuário criado com sucesso!', success: true })
 
   } catch (error) {
     console.log(error)

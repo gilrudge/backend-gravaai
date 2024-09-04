@@ -16,11 +16,11 @@ const createNewPassCtrl = async (req, res) => {
     
     if(!user){
 
-      return res.status(404).json({message: "Usuário não encontrado"})
+     return res.status(404).json({message: "Usuário não encontrado"})
 
     };
 
-    const token = crypto.randomBytes(20).toString('hex');
+    const token = crypto.randomBytes(3).toString('hex').toUpperCase();
     const now = new Date();
     now.setHours(now.getHours() + 1).toLocaleString();
 
@@ -28,7 +28,7 @@ const createNewPassCtrl = async (req, res) => {
 
       '$set': {
         passwordResetToken: token,
-        passwordReserEpires: now,
+        passwordResetExpires: now,
       }
     });
 
@@ -41,7 +41,7 @@ const createNewPassCtrl = async (req, res) => {
       
       };
 
-      res.status(200).json({message: "Email enviado com sucesso", token});
+      res.status(200).json({message: "Email enviado com sucesso", success:true});
     });
     // const mailOptions = {
     //   service: 'gmail',
@@ -72,7 +72,7 @@ const createNewPassCtrl = async (req, res) => {
 
  
 
-    res.status(200).json({message:`Email enviado para ${email}`});
+    res.status(200).json({message:`Email enviado para ${email}`, success:true});
   
 } catch (error) {
     

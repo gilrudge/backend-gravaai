@@ -15,14 +15,6 @@ const routes = require('./routes/routes');
 app.use(express.json())
 
 
-
-//Config Cors
-// app.use(cors({
-//   origin: 'http://127.0.0.1:3000', // Ou o domínio da sua aplicação frontend
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//   credentials: true, // Se você precisar enviar cookies junto com as requisições
-//   allowedHeaders: 'Content-Type,Authorization'
-// }))
 app.use(cors())
 
 

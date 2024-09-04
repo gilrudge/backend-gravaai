@@ -34,8 +34,9 @@ router.get('/register', getRegisterCtrl);
 router.get('/pass-recover', getPassRecoverCtrl);
 router.post('/auth/register', createUserCtrl);
 router.post('/auth/login', loginUserCtrl);
-router.get('/auth/pass-recover', createNewPassCtrl);
-router.post('/reset-senha', resetSenhaCtrl);
+// router.get('/auth/pass-recover', createNewPassCtrl);
+router.post('/auth/pass-recover', createNewPassCtrl);
+router.post('/reset-pass', resetSenhaCtrl);
 
 //Private route users
 // router.get('/user/:id', checkToken, userPrivateRouteCtrl);
