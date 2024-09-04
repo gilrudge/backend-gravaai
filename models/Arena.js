@@ -80,4 +80,4 @@ const novaArenaSchema = new mongoose.Schema({
 
 const Arena = mongoose.model('Arena', novaArenaSchema);
 
-module.exports = Arena
+module.exports = Arena;

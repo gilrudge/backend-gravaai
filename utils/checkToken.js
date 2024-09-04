@@ -1,26 +1,18 @@
-// const express = require('express');
 const jwt = require('jsonwebtoken');
-const path = require('path')
 
 
 const checkToken = (req, res, next) => {
     
-  try{
+  try{    
     
-    
-    const authorization = req.headers['authorization']
+    const authorization = req.headers['authorization'];
+
     const token = authorization && authorization.split(' ')[1];
-    // console.log('Authorization Header:', authorization);
-    // console.log('Token:', token);
-  
- 
-  
-  
+      
 
     if(!token){
-            return  res.status(401).json({message: 'Acesso Negado, favor realizar o login'})
-    };
-    
+      return  res.status(401).json({message: 'Acesso Negado, favor realizar o login'})
+    };    
     
 
     jwt.verify(token, process.env.SECRET, (err, decoded) => {
@@ -31,20 +23,17 @@ const checkToken = (req, res, next) => {
       req.userId = decoded.id;
       
       return next()     
-    })
-
-    
-    
-    
+    });    
     
       
       
   }catch(err){
-    console.log(err.message)
-    res.status(400).json({message: 'Token inválido, favor se logar novamente!'});
+
+    console.log(err.message);
+
+    res.status(400).json({message: 'Token inválido, favor se logar novamente!'});  
     
-    
-  }
+  };
 };
 
 module.exports = checkToken;

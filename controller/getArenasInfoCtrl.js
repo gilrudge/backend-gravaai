@@ -1,11 +1,9 @@
 const Arena = require('../models/Arena');
-const path = require('path');
-// const express = require('express')
+
 
 const getArenasInfoCtrl = async (req, res) => {
 
   try {
-
     
     
     const arena = await Arena.aggregate([{
@@ -25,10 +23,10 @@ const getArenasInfoCtrl = async (req, res) => {
       $match: {
         'videos.0': { $exists: true }
       }
-    }])
+    }]);
 
 
-    res.status(200).json({ arenas: arena })
+    res.status(200).json({ arenas: arena });
 
     
 
@@ -38,7 +36,7 @@ const getArenasInfoCtrl = async (req, res) => {
 
     res.status(500).json({ message: "Ocorreu um erro na requisição para o servidor, tente novamente." })
 
-  }
+  };
 
 };
 

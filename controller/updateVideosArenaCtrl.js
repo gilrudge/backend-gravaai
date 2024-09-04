@@ -1,6 +1,5 @@
 const Arena = require('../models/Arena');
-const formatedData = require('../utils/dateFormatter');
-const comparaData = require('../utils/comparaData');
+
 
 const updateVideosArenaCtrl = async (req, res) => {
 
@@ -13,7 +12,7 @@ const updateVideosArenaCtrl = async (req, res) => {
     const hour = time[1];
 
     
-    console.log('BATATA')
+    
     const arenaExists = await Arena.findOne({ macDvr });
     
 
@@ -32,8 +31,7 @@ const updateVideosArenaCtrl = async (req, res) => {
       hour,
       link,
       flg_process,
-      macDvr,
-      // created: formatedData,      
+      macDvr,            
       arena:arenaExists._id
     };
 
@@ -41,22 +39,23 @@ const updateVideosArenaCtrl = async (req, res) => {
         
         {$push: {videos: video}},
         {new:true}
-      )
+      );
       
     if(!updateVideos){
       return res.status(404).json({message: 'Item não encontrado'})
-    }    
+    };    
 
     res.status(201).json({ message: "Video incluído com sucesso" })
 
   } catch (error) {
     
       console.log(error.message);
-      res.status(500).json({ message: error })
-  }
+
+      res.status(500).json({ message: "Não foi possível incluir o vídeo", success: false })
+  };
 
 };
 
 
 
-module.exports = updateVideosArenaCtrl
+module.exports = updateVideosArenaCtrl;

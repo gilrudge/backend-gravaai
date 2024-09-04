@@ -7,7 +7,7 @@ const resetSenhaCtrl = async (req, res) => {
 
   try {
 
-    const { email, tokenTemp, password } = req.body
+    const { email, tokenTemp, password } = req.body;
 
     const user = await User.findOne({ email }).select('+passwordResetToken passwordResetExpires');
 
@@ -18,7 +18,6 @@ const resetSenhaCtrl = async (req, res) => {
     if (tokenTemp !== user.passwordResetToken) {
       return res.status(400).json({ message: "Token inválido" })
     };
-
 
     const now = new Date();
 
@@ -36,12 +35,15 @@ const resetSenhaCtrl = async (req, res) => {
 
 
   } catch (error) {
-    console.log(error.message)
-    res.status(404).json({ message: "Ocorreu um erro ao resetar a senha" })
+
+    console.log(error.message);
+
+    res.status(404).json({ message: "Ocorreu um erro ao resetar a senha" });
+
   };
 
 };
 
 
 
-module.exports = resetSenhaCtrl
+module.exports = resetSenhaCtrl;

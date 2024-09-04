@@ -1,8 +1,7 @@
-
 const nodemailer = require('nodemailer');
 require('dotenv').config( );
 
-// const mailSender = async (email, token, callback) => {
+
 const mailSender = (email, token, callback) => {
 
 
@@ -29,4 +28,4 @@ const mailSender = (email, token, callback) => {
 
   };
 
-  module.exports = mailSender
+  module.exports = mailSender;

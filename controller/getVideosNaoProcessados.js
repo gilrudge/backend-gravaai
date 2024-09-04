@@ -25,7 +25,7 @@ const getVideosNaoProcessados = async (req, res) => {
       $match: {
         'videos.0': { $exists: true }
       }
-    }])
+    }]);
 
     if (arena != "") {
       res.status(200).json({ message: "Existem videos para processamento", processar: arena })
@@ -38,10 +38,10 @@ const getVideosNaoProcessados = async (req, res) => {
 
   } catch (error) {
 
-    console.log(error.message)
+    console.log(error.message);
 
-    res.status(400).json({ message: "O servidor não pode processar essa requisição" })
+    res.status(400).json({ message: "O servidor não pode processar essa requisição" });
   }
 };
 
-module.exports = getVideosNaoProcessados
+module.exports = getVideosNaoProcessados;

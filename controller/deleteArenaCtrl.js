@@ -1,9 +1,10 @@
 const Arena = require('../models/Arena');
 
 const deleteArenaCtrl = async (req, res) => {
+
   try {
 
-    const {idArena} = req.params
+    const {idArena} = req.params;
 
     const arenaExists = await Arena.findById(idArena);
 

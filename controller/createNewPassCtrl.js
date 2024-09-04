@@ -1,9 +1,7 @@
 const User = require('../models/User')
-const bcrypt = require('bcrypt');
 const crypto = require('crypto');
 const mailSender = require('../services/mailSender');
-// const nodemailer = require('nodemailer');
-require('dotenv').config()
+
 
 
 const createNewPassCtrl = async (req, res) => {
@@ -15,9 +13,7 @@ const createNewPassCtrl = async (req, res) => {
     const user = await User.findOne({email})
     
     if(!user){
-
      return res.status(404).json({message: "Usuário não encontrado"})
-
     };
 
     const token = crypto.randomBytes(3).toString('hex').toUpperCase();
@@ -36,49 +32,21 @@ const createNewPassCtrl = async (req, res) => {
     mailSender(email,token, (err) => {
 
       if(err){
-
-        return res.status(400).json({message: "Não foi possível enviar o email de recuperação de senha"})
-      
+        return res.status(400).json({message: "Não foi possível enviar o email de recuperação de senha"})      
       };
 
       res.status(200).json({message: "Email enviado com sucesso", success:true});
     });
-    // const mailOptions = {
-    //   service: 'gmail',
-    //   host: 'smtp.gmail.com',
-    //   port: 587,
-    //   auth: {
-    //     user:process.env.EMAIL_USER,
-    //     pass:process.env.EMAIL_APP_PASSWORD
-    //   }
-    // };
-
-    // const transporter = nodemailer.createTransport(mailOptions);
-
-    // transporter.sendMail({
-
-    //   from:`"Gravaai" <${process.env.EMAIL_USER}>`,
-    //   to: email,
-    //   subject:'Esqueci minha senha Gravaai - Senha temporária',
-    //   text: `Sua senha temporária é ${token}`
-    // }, (err) =>{
-    //   if(err){
-    //     return res.status(400).json({message: "Não foi possível enviar o email de recuperação de senha"});
-    //   }
-    //   res.status(200).json({message: "Email enviado com sucesso", token});
-    // });
-
     
-
- 
-
     res.status(200).json({message:`Email enviado para ${email}`, success:true});
   
 } catch (error) {
     
     console.log(error.message);
 
-  }
+    res.status(500).json({message: "Não foi possível enviar o email tente novamente", success: false})
+
+  };
 
 };
 

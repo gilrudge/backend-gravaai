@@ -1,5 +1,4 @@
 const User = require('../models/User');
-const path = require('path')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
@@ -7,7 +6,7 @@ const loginUserCtrl = async (req, res) => {
 
   try {
 
-    const { email, password } = req.body
+    const { email, password } = req.body;
 
     if (!email) {
       return res.status(422).json({ message: 'O email é obrigatório' })
@@ -42,6 +41,7 @@ const loginUserCtrl = async (req, res) => {
 
 
   } catch (err) {
+    
     console.log(err.message);
 
     res.status(500).json({ message: 'Aconteceu um erro no servidor, tente novamente mais tarde!' })
