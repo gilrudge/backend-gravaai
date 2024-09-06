@@ -4,8 +4,8 @@ const createArenaCtrl = async(req,res) => {
 
   try {
   
-    const {nomeArena, cnpj, macDvr, pais, estado, cidade, bairro, endereco} = req.body;
-
+    const {nomeArena, cnpj, macDvr, dvrAddr, pais, estado, cidade, bairro, endereco, cep} = req.body;
+    
     const arenaExists = await Arena.findOne({cnpj});
 
     if (arenaExists){
@@ -20,18 +20,20 @@ const createArenaCtrl = async(req,res) => {
 
     if(dvrCadastrado){
       return res.status(422).json({message: "Esse equipamento já está cadastrado"})
-    }
+    };
 
     const arena = new Arena({
 
       nomeArena,
       cnpj,
       macDvr,
+      dvrAddr,
       pais,
       estado,
       cidade,
       bairro,
       endereco,
+      cep
     
     });
 
@@ -42,9 +44,9 @@ const createArenaCtrl = async(req,res) => {
 
   } catch (error) {
 
-      console.log(error);
+      console.log(error.message);
 
-      res.status(500).json({message:error});
+      res.status(500).json({message:error.errmsg});
   };
 
 };

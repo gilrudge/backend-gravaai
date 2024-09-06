@@ -9,6 +9,8 @@ const putAtualizaVideosProcessados = async (req, res) => {
 
     const { idArena, idVideo, bt_num, process_time, link, flg_process, macDvr } = req.body;
 
+    console.log(req.body)
+
     const arenaExists = await Arena.findById(idArena);
     
     if(!arenaExists){

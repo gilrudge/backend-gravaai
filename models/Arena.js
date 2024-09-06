@@ -16,6 +16,11 @@ const novaArenaSchema = new mongoose.Schema({
     required: true,
     unique: true
   },
+  dvrAddr: {
+    type: String,
+    required: true,
+    unique: true
+  },
   pais: {
     type:String,
     required: true,
@@ -45,10 +50,14 @@ const novaArenaSchema = new mongoose.Schema({
     immutable: true,
     default: () => Date.now()
   },
-  videos: [{
+  videos:{ 
+    
+    default:[],
+    type:[
+      {
       bt_num: {
         type:Number,
-        required: true
+        // required: true
       },
       process_time: {
         type:String,
@@ -62,19 +71,23 @@ const novaArenaSchema = new mongoose.Schema({
         type:String,
         // required: true
     },
-      flg_process: Boolean,
-      macDvr: {
-        type:String,
-        required: true
-      },
+      flg_process: {
+        type: Boolean
+    },
+      // macDvr: {
+        // type:String,
+        // required: true
+    // },
       link: {
         type:String,
-        required: true,
-        unique: true
-      },
-      created: String,
-      createdAt: {type: Date, immutable: true, default: () => Date.now()}
+        // required: true,       
+    },      
+      createdAt: {
+        type: Date,
+        default: () => Date.now()
+      }
     }]
+  }
   });
 
 

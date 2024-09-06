@@ -45,7 +45,7 @@ services:
     depends_on:
       - mongodb
     ports:
-      - 3000
+      - "3000:3000"
     environment:
       - DB_URL: mongodb://127.0.0.1:27017/gravaai
 
@@ -65,7 +65,7 @@ services:
     depends_on:
       - mongodb
     ports:
-      - 3000
+      - "3000:3000"
     environment:
       - DB_URL: mongodb://127.0.0.1:27017/gravaai
 
@@ -85,7 +85,7 @@ services:
     depends_on:
       - mongodb
     ports:
-      - 3000
+      - "3000:3000"
     environment:
       - DB_URL: mongodb://127.0.0.1:27017/gravaai
 
