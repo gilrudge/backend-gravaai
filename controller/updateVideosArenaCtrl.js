@@ -5,7 +5,7 @@ const updateVideosArenaCtrl = async (req, res) => {
 
   try {
 
-    const { bt_num, process_time, link, flg_process, macDvr } = req.body;
+    const { bt_num, process_time, link, flg_process, macDvr, flgRotate } = req.body;
 
     const time = process_time.split(" ");
     const date = time[0];
@@ -31,7 +31,8 @@ const updateVideosArenaCtrl = async (req, res) => {
       hour,
       link,
       flg_process,
-      macDvr,            
+      macDvr, 
+      flgRotate,           
       arena:arenaExists._id
     };
 

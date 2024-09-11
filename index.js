@@ -21,8 +21,8 @@ app.use(cors())
 app.use('/', routes)
 
 //DB Connection
-const DB_URL = process.env.DB_URL
-// const DB_URL = process.env.ME_CONFIG_MONGODB_URL
+// const DB_URL = process.env.DB_URL
+const DB_URL = process.env.ME_CONFIG_MONGODB_URL
 mongoose.connect(DB_URL).then(() => {
   app.listen(process.env.PORT,()=> {
     console.log(`Aplicação rodando na porta ${process.env.PORT} e conectada ao Banco de Dados`)

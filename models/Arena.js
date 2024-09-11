@@ -74,10 +74,9 @@ const novaArenaSchema = new mongoose.Schema({
       flg_process: {
         type: Boolean
     },
-      // macDvr: {
-        // type:String,
-        // required: true
-    // },
+      flgRotate:{
+      type: Boolean
+    },
       link: {
         type:String,
         // required: true,       
