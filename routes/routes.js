@@ -34,8 +34,10 @@ router.get('/arena/:idArena', checkToken, getSelectedArenaCtrl);
 //Private routes admin
 router.post('/cadastro-arena', createArenaCtrl);
 router.delete('/exclui-arena/:idArena', deleteArenaCtrl);
-router.put('/grava-lances', updateVideosArenaCtrl);
 router.delete('/exclui-lances/:idArena/:idVideo', deleteVideoArenaCtrl);
+
+//Rotas Internas
+router.put('/grava-lances', updateVideosArenaCtrl);
 router.get('/limpa-videos', limpaVideosAntigosCtrl);
 router.get('/videos-np', getVideosNaoProcessados);
 router.put('/videos-p', putAtualizaVideosProcessados);
