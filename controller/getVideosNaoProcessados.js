@@ -12,6 +12,7 @@ const getVideosNaoProcessados = async (req, res) => {
         _id: 1,
         nomeArena: 1,
         macDvr: 1,
+        dvrAddr: 1,
         videos: {
           $filter: {
             input: '$videos',
